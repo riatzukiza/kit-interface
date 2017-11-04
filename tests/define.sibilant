@@ -1,0 +1,11 @@
+(namespace interface)
+(include "../meta")
+(import-namespace kit)
+
+(require!  (lit Interface) "./index")
+
+(define Hello Interface
+  (def send (name)
+    (print "yoyo" name)))
+
+(.send Hello "aaron")

@@ -1,0 +1,56 @@
+(namespace interface)
+
+(include "kit/header")
+(import-namespace kit)
+(include "./meta")
+(import-namespace meta)
+
+
+(var Interface {})
+
+(describe Interface ( *symbols {}) ( *types {})
+          (init (name *obj (*types {}) (*symbols {}))))
+
+(def-generic Interface.define
+    (name
+
+     *obj *types *symbols
+
+     ( *shares (or *obj.borrows *obj.shares []))
+     ( *ext (or *obj.extend this))
+     ( *build *obj.build))
+
+  (if (in  *symbols name)
+
+      (mixin *obj (get *types (get *symbols name)))
+      (.*construct  Interface name *obj *ext *shares *symbols *types *build)))
+
+(def-generic Interface.*construct (name *obj *ext *shares *symbols *types *build)
+  (collect proto (extend  *ext (mixin  [ (lit name (symbol (Symbol name))
+                                              (define Interface.define)
+                                              (*construct Interface.*construct))
+                                         (dots *shares) ]
+                                       *obj))
+           (def proto.construct ()
+             (.init (Object.create proto)
+                    (dots arguments)))
+
+           (.call Interface.init proto)
+
+           (set *symbols name proto.symbol)
+           (set *types  proto.symbol proto)
+
+           (if *build (.build proto ))
+
+           proto
+
+           ))
+
+
+(export Interface)
+;; (define Mow Interface
+;;   (def meow () (print 'meow)))
+;; (print Mow)
+;; (var x (Mow.construct))
+;; (.meow x)
+;; (.meow Mow)
