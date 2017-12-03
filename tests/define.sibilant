@@ -1,8 +1,10 @@
+(include "kit/header")
 (namespace interface)
 (include "../meta")
 (import-namespace kit)
+(include "../index.sibilant")
 
-(require!  (lit Interface) "./index")
+;;(require!  (lit Interface) "./index")
 
 (define Hello Interface
   (def send (name)
