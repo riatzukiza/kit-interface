@@ -1,5 +1,4 @@
 (namespace interface)
-(include "kit/header")
 (import-namespace kit)
 
 (macro in (  o k) [k " in " o])
