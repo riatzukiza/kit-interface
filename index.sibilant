@@ -28,6 +28,7 @@
 (def-generic Interface.*construct (name *obj *ext *shares *symbols *types *build)
   (collect proto (extend  *ext (mixin  [ (lit name (symbol (Symbol name))
                                               (define Interface.define)
+                                              (proto *ext)
                                               (*construct Interface.*construct))
                                          (dots *shares) ]
                                        *obj))
