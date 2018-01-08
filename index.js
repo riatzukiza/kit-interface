@@ -51,59 +51,6 @@ var {
   cond,
   partiallyApplyAfter
  } = require("kit/js/util");
-
-
-(function(a, b, c) {
-  /* node_modules/kit/inc/core/defs.sibilant:53:9 */
-
-  return foo(this);
-}).bind(this);
-
-
-;
-
-;
-var Descriptions = {  };
-var R = require("ramda");
-var fmap = R.curry(((f, a) => {
-	
-  return a.map(f);
-
-}));
-var is = { 
-  string( v ){ 
-    
-      return typeof v === "string";
-    
-   }
- };
-is.empty__QUERY = (function is$empty__QUERY$(value) {
-  /* is.empty? node_modules/kit/inc/core/fp.sibilant:12:0 */
-
-  return 0 === value.length;
-});
-var athrow = (function athrow$(errType, message) {
-  /* athrow node_modules/kit/inc/core/fp.sibilant:14:0 */
-
-  return (() => {
-  	
-    return (new errType(message));
-  
-  });
-});
-var getValueOf = (function getValueOf$(o) {
-  /* get-value-of node_modules/kit/inc/core/fp.sibilant:17:0 */
-
-  return o.getValue();
-});
-var { 
-  create,
-  extend,
-  mixin,
-  conditional,
-  cond,
-  partiallyApplyAfter
- } = require("kit/js/util");
 var Interface = {  };
 mixin({ 
   _symbols:{  },
@@ -130,10 +77,10 @@ Interface._construct = (function Interface$_construct$(name = this.name, _obj = 
   /* Interface.*construct node_modules/kit/inc/core/function-expressions.sibilant:30:8 */
 
   return (function(proto) {
-    /* node_modules/kit/inc/macros.sibilant:162:9 */
+    /* node_modules/kit/inc/macros.sibilant:160:9 */
   
     proto.construct = (function proto$construct$() {
-      /* proto.construct index.sibilant:34:11 */
+      /* proto.construct index.sibilant:35:11 */
     
       return Object.create(proto).init(...arguments);
     });
@@ -141,7 +88,7 @@ Interface._construct = (function Interface$_construct$(name = this.name, _obj = 
     _symbols[name] = proto.symbol;
     _types[proto.symbol] = proto;
     (function() {
-      if (_build) {
+      if (proto.build) {
         return proto.build();
       }
     }).call(this);
@@ -151,6 +98,7 @@ Interface._construct = (function Interface$_construct$(name = this.name, _obj = 
     name,
     symbol:Symbol(name),
     define:Interface.define,
+    proto:_ext,
     _construct:Interface._construct
    }, ..._shares ], _obj)));
 });

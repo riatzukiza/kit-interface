@@ -1,4 +1,7 @@
 {"name":"kit-interface",
  "author":"Aaron Beavers",
  "main":"./index.js",
- "version":"2.0.0","dependencies":{"kit":"git+ssh://riatzukiza@aaron.kettlelogic.space:1250/H/gits/kit"}}
+ "scripts":{
+     "compile":"sibilant ./index.sibilant -o ."
+ },
+ "version":"2.0.1","dependencies":{"kit":"git+ssh://riatzukiza@aaron.kettlelogic.space:1250/H/gits/kit"}}
