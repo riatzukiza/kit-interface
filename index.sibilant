@@ -41,7 +41,7 @@
            (set *symbols name proto.symbol)
            (set *types  proto.symbol proto)
 
-           (if *build (.build proto ))
+           (if proto.*build (.build proto ))
 
            proto
 
