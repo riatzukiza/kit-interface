@@ -1,51 +1,46 @@
 (namespace interface)
 
-(include "kit/header")
+(include "@kit-js/core/header")
 (import-namespace kit)
 (include "./meta")
 (import-namespace meta)
 
 
-(var Interface {})
+(var Interface (lit  ( *symbols {}) ( *types {}) (init (name *obj (*types {}) (*symbols {})))
+                     (def-generic define
+                       (name
 
-(describe Interface ( *symbols {}) ( *types {})
-          (init (name *obj (*types {}) (*symbols {}))))
+                        *obj *types *symbols
 
-(def-generic Interface.define
-    (name
+                        ( *shares (or *obj.borrows *obj.shares []))
+                        ( *ext (or *obj.extend this))
+                        ( *build *obj.build))
 
-     *obj *types *symbols
+                       (if (in  *symbols name)
 
-     ( *shares (or *obj.borrows *obj.shares []))
-     ( *ext (or *obj.extend this))
-     ( *build *obj.build))
+                           (mixin *obj (get *types (get *symbols name)))
+                         (.*construct  Interface name *obj *ext *shares *symbols *types *build)))
 
-  (if (in  *symbols name)
+                     (def-generic *construct (name *obj *ext *shares *symbols *types *build)
+                       (collect proto (extend  *ext (mixin  [ (lit name (symbol (Symbol name))
+                                                                   (define Interface.define)
+                                                                   (proto *ext)
+                                                                   (*construct Interface.*construct))
+                                                              (dots *shares) ]
+                                                            *obj))
+                                (def proto.construct ()
+                                     (.init (Object.create proto)
+                                            (dots arguments)))
 
-      (mixin *obj (get *types (get *symbols name)))
-      (.*construct  Interface name *obj *ext *shares *symbols *types *build)))
+                                (.call Interface.init proto)
 
-(def-generic Interface.*construct (name *obj *ext *shares *symbols *types *build)
-  (collect proto (extend  *ext (mixin  [ (lit name (symbol (Symbol name))
-                                              (define Interface.define)
-                                              (proto *ext)
-                                              (*construct Interface.*construct))
-                                         (dots *shares) ]
-                                       *obj))
-           (def proto.construct ()
-             (.init (Object.create proto)
-                    (dots arguments)))
+                                (set *symbols name proto.symbol)
+                                (set *types  proto.symbol proto)
 
-           (.call Interface.init proto)
+                                (if proto.build (.build proto ))
 
-           (set *symbols name proto.symbol)
-           (set *types  proto.symbol proto)
+                                proto)))) 
 
-           (if proto.build (.build proto ))
-
-           proto
-
-           ))
 
 
 (export Interface)
